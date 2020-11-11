@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+- 회원 리스트 (view)-
+<form action="/login" method="POST">
+<table border='1'>
+<tr align="center" bgcolor="gray">
+<td>번호</td>
+<td>아이디</td>
+<td>이름</td>
+<td>비번</td>
+<td>폰넘버</td>
+</tr>dd
+    {%for i in alllist%}
+		<tr>
+        <td>{{i[0]}} </td>
+        <td>{{i[1]}} </td>
+        <td>{{i[2]}} </td>
+        <td>{{i[3]}} </td>
+        <td>{{i[4]}} </td>
+        <td>
+            <input type="submit" value="삭제" name="num"> 
+        </td>
+		</tr>
+	{%endfor%}
+	
+</table>
+</form>		
+</body>
+</html>
