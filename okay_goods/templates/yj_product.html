@@ -1,0 +1,478 @@
+<html lang="en"><head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{{url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{url_for('static', filename='css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/product.css')}}" rel="stylesheet">
+
+<style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-yj_index.html:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style><style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-yj_index.html:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+
+<body id="page-top" data-new-gr-c-s-check-loaded="14.983.0" class="">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center" href="product">
+                <img id="logo_gray" src="{{url_for('static', filename='img/trLogo.png')}}" alt="My Image">
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="product">                    
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>상품조회</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                검수페이지
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="scan">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>영상검수</span>
+                </a>
+            </li>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="table">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>불량조회</span></a>
+            </li>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="chart">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>통계차트</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                관리페이지
+            </div>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="product">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>상품관리</span></a>
+            </li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="product">
+                    
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>회원관리</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" onclick="toggleImg()"></button>
+            </div>
+            <div class="sidebar-card">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © OKAY 2020</span>
+                </div>
+            </div>
+        </ul>
+            <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="product" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600">빅데이터 기반 프린팅 검수 서비스</span>
+                            </a>    
+                        </li>
+                        <!-- topbar divider -->
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="logout" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-sign-out-alt fa-fw mr-2"></i>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">LOGOUT</span>
+                            </a>    
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Content Row -->
+                    <!-- select product line -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">상품조회&ensp;<i class="fas fa-angle-right"></i>&ensp;상품라인&ensp;
+                                <button id="myBtn" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fas fa-download fa-sm"></i>&ensp;상품등록
+                                </button>
+                            </h6>
+
+                            <!-- The Modal -->
+                            <div id="myModal" class="modal">
+                                <!-- Modal content -->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modal">상품 등록</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                        <form action="product" method="get">
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-10">
+                                                    <label>상품라인</label> <input type="text" name="reviewtitle"
+                                                        class="form-control" maxlength="30">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-10">
+                                                    <label>상품코드</label> <input type="text" name="challengeID"
+                                                        class="form-control" maxlength="20">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-10">
+                                                    <label><i class="fas fa-fw fa-folder" ></i>이미지첨부</label>
+                                                    <input type="text" name="file" class="form-control" maxlength="20">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer"> 
+                                                <input class="btn btn-primary" type="submit" onclick="reviewConfirmed(event)" value="상품등록" style="color:white;" data-dismiss="modal">
+                                             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> -->
+                                            </div>
+                                        </div>
+                                        </form>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <div class="row">
+                            <!-- productLiine1 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/fridge.png')}}" alt="My Image"/>                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">냉장고</div>
+                                                <div class="content"><h2>LINE A</h2></div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- productLine2 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-danger shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/laundry.png')}}" alt="My Image"/>                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">세탁기</div>
+                                                <div class="content"><h2>LINE B</h2></div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- productLine3 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/coffee.png')}}" alt="My Image"/>                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">커피머신</div>
+                                                <div class="content"><h2>&ensp;&ensp;LINE C</h2></div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- productLine4 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/scale.png')}}" alt="My Image"/>                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">중량계</div>
+                                                <div class="content"><h2>LINE D</h2></div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- productLine5 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/oven.png')}}" alt="My Image"/>                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">오븐</div>
+                                                <div class="content"><h2>LINE A</h2></div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- productLine6 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-danger shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/microwave.png')}}" alt="My Image"/>
+                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">전자레인지</div>
+                                                <div class="content"><h2>&ensp;&ensp;LINE B</h2></div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- productLine7 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/vac.png')}}" alt="My Image"/>
+                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">청소기</div>
+                                                <div class="content"><h2>LINE C</h2></div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- productLine8 -->
+                            <div class="col-xl-3 col-md-6 mb-4" onclick="location.href='productnum';">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body rotate">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <img class="product"" src="{{url_for('static', filename='img/computer.png')}}" alt="My Image"/>
+                                            </div>
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 line">컴퓨터</div>
+                                                <div class="content"><h2>&ensp;&ensp;LINE D</h2></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top" style="display: none;">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{url_for('static', filename='js/demo/chart-pie-demo.js')}}"></script>
+
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+<!-- Change Logo on Toggle Button Click -->
+<script>
+    var cnt=1;
+    function toggleImg() {
+      if(cnt%2==1){
+        document.getElementById("logo_gray").src = "{{url_for('static', filename='img/smallLogo.png')}}";
+        document.getElementById("logo_gray").style="height:100px; width:75px";
+            cnt++;
+        }else{
+            document.getElementById("logo_gray").src = "{{url_for('static', filename='img/trLogo.png')}}";
+            document.getElementById("logo_gray").style="vertical-align:middle;border-style:none;height: 160px;";
+            cnt++;
+        }
+    }
+</script>
+
+<!-- modal -->
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+  
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+  
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];                                          
+  
+    // When the user clicks on the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+  
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+  
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+  </script>
+</body></html>

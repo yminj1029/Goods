@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Charts</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{{url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}
+    " rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{url_for('static', filename='css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center" href="product">
+                <img id="logo_gray" src="{{url_for('static', filename='img/trLogo.png')}}" alt="My Image">
+           </a>
+           <!-- Divider -->
+           <hr class="sidebar-divider my-0">
+           <!-- Nav Item - Dashboard -->
+           <li class="nav-item">
+               <a class="nav-link" href="product">                    
+                   <i class="fas fa-fw fa-folder"></i>
+                   <span>상품조회</span></a>
+           </li>
+           <!-- Divider -->
+           <hr class="sidebar-divider">
+           <!-- Heading -->
+           <div class="sidebar-heading">
+               검수페이지
+           </div>
+           <!-- Nav Item - Pages Collapse Menu -->
+           <li class="nav-item">
+               <a class="nav-link" href="scan">
+                   <i class="fas fa-fw fa-tachometer-alt"></i>
+                   <span>영상검수</span>
+               </a>
+           </li>
+           <!-- Nav Item - Charts -->
+           <li class="nav-item">
+               <a class="nav-link" href="table">
+                   <i class="fas fa-fw fa-table"></i>
+                   <span>불량조회</span></a>
+           </li>
+           <!-- Nav Item - Utilities Collapse Menu -->
+           <li class="nav-item active">
+               <a class="nav-link" href="chart">
+                   <i class="fas fa-fw fa-chart-area"></i>
+                   <span>통계차트</span></a>
+           </li>
+           <!-- Divider -->
+           <hr class="sidebar-divider">
+           <!-- Heading -->
+           <div class="sidebar-heading">
+               관리페이지
+           </div>
+           <!-- Nav Item - Charts -->
+           <li class="nav-item">
+               <a class="nav-link" href="product">
+                   <i class="fas fa-fw fa-wrench"></i>
+                   <span>상품관리</span></a>
+           </li>
+           <!-- Nav Item - Tables -->
+           <li class="nav-item">
+               <a class="nav-link" href="product">       
+                   <i class="fas fa-fw fa-cog"></i>
+                   <span>회원관리</span></a>
+           </li>
+           
+           <!-- Divider -->
+           <hr class="sidebar-divider d-none d-md-block">
+           <!-- Sidebar Toggler (Sidebar) -->
+           <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" onclick="toggleImg()"></button>
+           </div>
+           <div class="sidebar-card">
+               <div class="copyright text-center my-auto">
+                   <span>Copyright © OKAY 2020</span>
+               </div>
+           </div>
+       </ul>
+           <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="product" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600">빅데이터 기반 프린팅 검수 서비스</span>
+                            </a>    
+                        </li>
+                        <!-- topbar divider -->
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="logout" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-sign-out-alt fa-fw mr-2"></i>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">LOGOUT</span>
+                            </a>    
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+                <form action="/chart" method="POST">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Content Row -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <div style="float: left; padding: 10px;"><h6 class="m-0 font-weight-bold text-primary">불량통계&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</h6></div>
+                            <div class="form-group" style="float: left; padding: 0; margin: 0;">
+                                <span style="float: left; padding: 10px 10px 0 10px;"><label>&ensp;시작 연도</label></span> <span style="float: left;">
+                                    <select name="d_StartYear"
+                                    class="form-control">
+                                    <option value="2020" selected>선택</option>
+                                    <option value="2020">2020</option>
+                                    
+                                </select></span>
+                            </div>
+                            <div class="form-group" style="float: left; padding: 0; margin: 0;">
+                                <span style="float: left; padding: 10px 10px 0 10px;"><label>월</label></span> 
+                                <span style="float: left;"><select name="d_StartMonth" class="form-control">
+                                    <option value="11" selected>선택</option>
+                                    <option value="11">11</option>
+                                </select></span>
+                            </div>
+                            <div class="form-group" style="float: left; padding: 0; margin: 0;">
+                                <span style="float: left; padding: 10px 10px 0 10px;"><label>일</label></span>
+                                <span style="float: left;"><select name="d_StartDay"
+                                    class="form-control">
+                                    <option value="20" selected>선택</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select></span>
+                            </div>
+                            <div style="float: left; padding: 10px 10px 0 10px;">&ensp;~</div>
+
+                            <div class="form-group" style="float: left; padding: 0; margin: 0;">
+                                <span style="float: left; padding: 10px 10px 0 10px;"><label>마감 연도</label></span> 
+                                <span style="float: left;"><select name="d_EndYear"
+                                    class="form-control">
+                                    <option value="2020" selected>선택</option>
+                                    <option value="2020">2020</option>
+                                </select></span>
+                            </div>
+                            <div class="form-group" style="float: left; padding: 0; margin: 0;">
+                                <span style="float: left; padding: 10px 10px 0 10px;"><label>월</label></span> 
+                                <span style="float: left;"><select name="d_EndMonth"
+                                    class="form-control">
+                                    <option value="11" selected>선택</option>
+                                    <option value="11">11</option>
+                                </select></span>
+                            </div>
+                            <div class="form-group" style="float: left; padding: 0; margin: 0;">
+                                <span style="float: left; padding: 10px 10px 0 10px;"><label>일</label></span> 
+                                <span style="float: left;"><select name="d_EndDay"
+                                    class="form-control">
+                                    <option value="20" selected>선택</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select></span>
+                            </div>&ensp;&ensp;
+                            <input class="btn btn-primary" id="dateSubmit" type="submit" value="검색" style="color: white;">
+                        </div>
+
+                
+                    <div class="row">
+                            <div class="col-xl-8 col-lg-7">
+                                                        <!-- Bar Chart -->
+                                                        <div class="card shadow mb-4">
+                                                            <div class="card-header py-3">
+                                                                <h6 class="m-0 font-weight-bold text-primary">Daily&ensp;</h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="chart-bar">
+                                                                    <canvas id="myBarChart" width="900" height="450" ></canvas>
+                                                                </div>
+                                                                <script>
+                                                                    var num = '{{d_chart}}';
+                                                                    var list = (num.split(" "));
+                                                                    console.log(list)
+                        
+                                                                    var ctx = document.getElementById('myBarChart');
+                                                                    var myChart = new Chart(ctx, {
+                                                                        type: 'bar',
+                                                                        data: {
+                                                                            labels: ["인쇄불량", "이물", "미스탬핑", "빈틈", "기타"],
+                                                                        datasets: [{
+                                                                        label: "불량개수",
+                                                                        backgroundColor: "#472905ec",
+                                                                        hoverBackgroundColor: "#6d420eec",
+                                                                        borderColor: "#6d420eec",
+                                                                        data: list,
+                                                                        }],
+                                                                        },
+                                                                        options: {
+                                                                            maintainAspectRatio: false,
+                                                                            responsive: false,
+                                                                            scales: {
+                                                                                xAxes: [{
+                                                                                            time: {
+                                                                                            unit: 'month'
+                                                                                            },
+                                                                                            gridLines: {
+                                                                                            display: false,
+                                                                                            drawBorder: false
+                                                                                            },
+                                                                                            ticks: {
+                                                                                            fontSize:20,
+                                                                                            maxTicksLimit: 6
+                                                                                            },
+                                                                                            maxBarThickness: 80,
+                                                                                        }],
+                                                                                yAxes: [{
+                                                                                    ticks: {
+                                                                                        fontSize:20,
+                                                                                        beginAtZero: true
+                                                                                    }
+                                                                                }]
+                                                                            },
+                                                                            legend: {
+                                                                        display: false
+                                                                    },
+                                                                        }
+                                                                    });
+                                                                </script>
+                                                     
+                                                                          
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <!-- Donut Chart -->
+                                                    <div class="col-xl-4 col-lg-5">
+                                                        <div class="card shadow mb-4">
+                                                            <!-- Card Header - Dropdown -->
+                                                            <div class="card-header py-3">
+                                                                <h6 class="m-0 font-weight-bold text-primary">Total</h6>
+                                                            </div>
+                                                            <!-- Card Body -->
+                                                            <div class="card-body">
+                                                                <div class="chart-pie pt-4">
+                                                                    <canvas id="myPieChart"></canvas>
+                                                                </div>
+                                                                <script>
+                                                                    var pie = '{{p_chart}}';
+                                                                    var pie_list = (pie.split(" "));
+                                                                    console.log(pie_list)
+                                                                  
+                                                                    // Pie Chart Example
+                                                                    var ctx = document.getElementById("myPieChart");
+                                                                    var myPieChart = new Chart(ctx, {
+                                                                      type: 'doughnut',
+                                                                      data: {
+                                                                        labels: ["정상", "인쇄불량", "이물", "미스탬핑", "빈틈", "기타"],
+                                                                        datasets: [{
+                                                                          data: pie_list,
+                                                                          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','#ebbb1d','#ff735b','#c0561b'],
+                                                                          hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#f4bc06','#f52400','#ae480f'],
+                                                                          hoverBorderColor: "rgba(234, 236, 244, 1)",
+                                                                        }],
+                                                                      },
+                                                                      options: {
+                                                                        maintainAspectRatio: false,
+                                                                        tooltips: {
+                                                                          backgroundColor: "rgb(255,255,255)",
+                                                                          bodyFontColor: "#858796",
+                                                                          borderColor: '#dddfeb',
+                                                                          borderWidth: 1,
+                                                                          xPadding: 15,
+                                                                          yPadding: 15,
+                                                                          displayColors: false,
+                                                                          caretPadding: 10,
+                                                                          fontSize:15
+                                                                        
+                                                                        },
+                                                                        legend: {
+                                                                          display: true,
+                                                                          position:'bottom',
+                                                                          labels :{
+                                                                              padding: 20,
+                                                                          }
+                                                                        },
+                                                                        cutoutPercentage: 50,
+                                                                      },
+                                                                    });
+                                                                  
+                                                                  </script>
+                                                                <br><br>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.container-fluid -->
+                                    </form>
+                                    </div>
+                                    <!-- End of Main Content -->
+                        
+                                </div>
+                                <!-- End of Content Wrapper -->
+                        
+                            </div>
+                        </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <!-- <script src="{{url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{url_for('static', filename='js/demo/chart-pie-demo.js')}}"></script>
+    <script src="{{url_for('static', filename='js/demo/chart-bar-demo.js')}}"></script> -->
+
+
+    <!-- Change Logo on Toggle Button Click -->
+<script>
+    var cnt=1;
+    function toggleImg() {
+      if(cnt%2==1){
+        document.getElementById("logo_gray").src = "{{url_for('static', filename='img/smallLogo.png')}}";
+        document.getElementById("logo_gray").style="height:100px; width:75px";
+            cnt++;
+        }else{
+            document.getElementById("logo_gray").src = "{{url_for('static', filename='img/trLogo.png')}}";
+            document.getElementById("logo_gray").style="vertical-align:middle;border-style:none;height: 160px;";
+            cnt++;
+        }
+    }
+</script>
+</body>
+
+</html>
