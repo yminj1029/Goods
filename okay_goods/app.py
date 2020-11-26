@@ -1,33 +1,31 @@
-# 플라스크를 사용하기 위해서 불러옴!
+# Y : 플라스크를 사용하기 위해서 불러옴!
 from flask import Flask , render_template, request, redirect, session, url_for, Response
-import cx_Oracle #오라클db 연결하기 위해 불러옴
-import os # 한글 쓸 수 있게 연결
-import numpy as np
-import datetime
-import cv2
-os.putenv('NLS_LANG', '.UTF8')
+import cx_Oracle # Y: 오라클db 연결하기 위해 불러옴
+import os # Y: 한글 쓸 수 있게 연결
+import numpy as np # Y: 차트 그릴 때 넘파이 사용할 거임
+import datetime # Y: 차트 그릴 때 날짜 입력
+import cv2 # K: 오픈cv
+os.putenv('NLS_LANG', '.UTF8') # Y: 한글!!
 
-
-
-#------db 연결함수
+#------Y: db 연결함수
 def dbConn():
     dsn = cx_Oracle.makedsn("218.157.111.143",1521,"xe")
     connection = cx_Oracle.connect("okay","1234",dsn)
     return connection
-#--------------------뷰단과 연결------------
+#--------------------Y: 뷰단과 연결------------
 app = Flask(__name__) # 인스턴스(객체)를 형성함.
 app.secret_key = b'aaa!111/' # 세션 걸기
 
-# 맨 첫페이지 : 로그인 창
+#y 맨 첫페이지 : 로그인 창
 @app.route('/', methods=['GET','POST'])
 def login():
-    connection = dbConn()
-    if request.method =='GET':
+    connection = dbConn() #디비연결
+    if request.method =='GET': # 겟방식 값없음 로그인 페이지로
         return render_template('yj_login.html')
     else :
-        ID = request.form['ID']
+        ID = request.form['ID'] #포스트로 받아올 거
         pw = request.form['pw']
-        cursor = connection.cursor()
+        cursor = connection.cursor() #sql문장
         cursor.prepare('select * from users where id =: id')
         cursor.execute(None,{'id':ID})
         res = cursor.fetchall()
@@ -46,21 +44,21 @@ def login():
             connection.close()
             return pr()
 
-# 두번째 페이지 : 대시보드 1 : 상품들이 나옴. 
+#y 두번째 페이지 : 대시보드 1 : 상품들이 나옴. 
 @app.route('/product')
 def pr():
-    if 'user' in session:
+    if 'user' in session: #세션 값 있어야 들어오는거 가능
         return render_template('yj_product.html')
     return redirect(url_for('login'))
 
-# 세번째 페이지 : 대시보드2 : 상품번호대로 나옴.
+#y 세번째 페이지 : 대시보드2 : 상품번호대로 나옴.
 @app.route('/productnum')
 def pr_num():
     if 'user' in session:
         return render_template('yj_product2.html')
     return redirect(url_for('login'))
 
-# 실시간 영상페이지 (추후에 바뀔 수 있다.)
+#k 실시간 영상페이지 (추후에 바뀔 수 있다.)
 @app.route('/scan')
 def scan():
     if 'user' in session:
@@ -128,7 +126,7 @@ def real_time():
                     break
         
     return result
-
+#k 비디오 캡쳐함수
 def gen_frames():
 
     cap = cv2.VideoCapture("./data/error/video/print_video.mp4")
@@ -153,39 +151,40 @@ def gen_frames():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# 테이블 - 표로 보여주는 곳 페이지
 
+#y 테이블 - 표로 보여주는 곳 페이지
 @app.route('/table')
 def table():
     if 'user' in session:
         connection = dbConn()
-        cursor = connection.cursor()
+        cursor = connection.cursor() #에러는 11 12 13 14 15/ 에러 없으면 0
         cursor.execute('select * from goodbad where error>=11')
         res = cursor.fetchall()
-        arr_all = np.array(res)
-        all = arr_all.tolist()
+        arr_all = np.array(res) #넘파이로 받아서
+        all = arr_all.tolist() # 넘파이로 안 넘어가서 리스트로 넘김
         return render_template('yj_tables.html',alllist = all)
     return redirect(url_for('login'))
 
+#y 차트 페이지 데일리, 토탈 두 가지 
 @app.route('/chart', methods=['GET','POST'])
 def chart():
     if 'user' in session:
         if request.method =='GET':
             return render_template('yj_charts.html')
         else:
-            d_StartYear=request.form['d_StartYear']
+            d_StartYear=request.form['d_StartYear'] # 날짜들 받아오기
             d_StartMonth=request.form['d_StartMonth']
             d_StartDay=request.form['d_StartDay']
             d_EndYear=request.form['d_EndYear']
             d_EndMonth=request.form['d_EndMonth']
             d_EndDay = request.form['d_EndDay']
-            d_startdate = str(d_StartYear)+str(d_StartMonth)+ str(d_StartDay)
+            d_startdate = str(d_StartYear)+str(d_StartMonth)+ str(d_StartDay) #넘파이로 안됌 --> 스트링으로 바꿈
             d_enddate =str(d_EndYear)+ str(d_EndMonth)+ str(d_EndDay)
-            if int(d_startdate) <= int(d_enddate):
+            if int(d_startdate) <= int(d_enddate): # 시작 날짜 < 끝날짜면 그대로
                 d_chart = chart_daily(d_startdate, d_enddate)
                 p_chart = pie(d_startdate, d_enddate)
                 return render_template('yj_charts.html',d_chart=d_chart, p_chart=p_chart)
-            if int(d_startdate) > int(d_enddate):
+            if int(d_startdate) > int(d_enddate): # 시작 날짜 > 끝날짜면 둘이 순서 바꿔서 sql에 들어감
                 d_chart = chart_daily(d_enddate,d_startdate)
                 p_chart = pie(d_enddate,d_startdate)
                 return render_template('yj_charts.html',d_chart=d_chart, p_chart=p_chart)
@@ -195,18 +194,19 @@ def chart():
 @app.route('/member')
 def membertable():
     return render_template('yj_membertables.html')
+
 # 로그아웃하면 로그인 페이지로 다시 돌아감.
 @app.route('/logout')
 def logout():
-    session.pop('user',None)
+    session.pop('user',None) #세션 없애는 함수
     return redirect(url_for('login'))
 
-#일일 차트 함수
+#y 일일 차트 함수
 def chart_daily(p_startdate, p_enddate):
     connection = dbConn()
     cursor = connection.cursor()
 
-    # 데일리 차트에 들어갈 내용
+    # 데일리 차트에 들어갈 내용 : 에러가 있을때, 날짜 기간 별로
     cursor.prepare("select * from goodbad where ymd between to_date(:startdate,'YY/MM/DD') and to_date(:enddate,'YY/MM/DD')")
     cursor.execute(None,{'startdate':p_startdate,'enddate':p_enddate})
    
@@ -227,9 +227,9 @@ def chart_daily(p_startdate, p_enddate):
     #15번 에러
     error15_bool = arr_all[:,2]==15
     error15_su = arr_all[error15_bool].shape[0]
-    
+    # 스트링 타입으로 묶어서 넘겨줌
     daily_cnt = str(error11_su)+" "+ str(error12_su)+" "+ str(error13_su)+" "+str(error14_su)+" "+str(error15_su)
-
+    # 디비 닫기
     connection.close()
     return daily_cnt
 
@@ -239,38 +239,31 @@ def pie(p_startdate, p_enddate):
     connection = dbConn()
     cursor = connection.cursor()
     cursor.prepare("select * from goodbad where ymd between to_date(:startdate,'YY/MM/DD') and to_date(:enddate,'YY/MM/DD')")
-    cursor.execute(None,{'startdate':p_startdate,'enddate':p_enddate})
-   
+    cursor.execute(None,{'startdate':p_startdate,'enddate':p_enddate})  
     res = cursor.fetchall()
     arr_all = np.array(res)
     # 정상품
     noerror_bool = arr_all[:,2]==0
     noerror_su = arr_all[noerror_bool].shape[0]
-    #11번 에러 
+    #11번 에러~ 15번에러 
     error11_bool = arr_all[:,2]==11
     error11_su = arr_all[error11_bool].shape[0]
-    #12번 에러
     error12_bool = arr_all[:,2]==12
     error12_su = arr_all[error12_bool].shape[0]
-    #13번 에러
     error13_bool = arr_all[:,2]==13
     error13_su = arr_all[error13_bool].shape[0]
-    #14번 에러
     error14_bool = arr_all[:,2]==14
     error14_su = arr_all[error14_bool].shape[0]
-    #15번 에러
     error15_bool = arr_all[:,2]==15
     error15_su = arr_all[error15_bool].shape[0]
-
-    # 에러 수를 퍼센트지로 나타냄
+    # 에러 수를 퍼센트로 나타냄
     noerror = noerror_su/(noerror_su+error11_su+error12_su+error13_su+error14_su+error15_su)*100
     error11 =error11_su/(noerror_su+error11_su+error12_su+error13_su+error14_su+error15_su)*100
     error12 =error12_su/(noerror_su+error11_su+error12_su+error13_su+error14_su+error15_su)*100
     error13 = error13_su/(noerror_su+error11_su+error12_su+error13_su+error14_su+error15_su)*100
     error14 =error14_su/(noerror_su+error11_su+error12_su+error13_su+error14_su+error15_su)*100
     error15 =error15_su/(noerror_su+error11_su+error12_su+error13_su+error14_su+error15_su)*100
-
-    #에러 퍼센트를 넘파이로 묶어줌
+    # 스트링 타입으로 묶음
     error_percent = str(round(noerror))+" "+str(round(error11))+" "+str(round(error12))+" "+str(round(error13))+" "+str(round(error14))+" "+str(round(error15))
     connection.close()
     return error_percent
