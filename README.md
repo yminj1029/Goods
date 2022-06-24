@@ -1,6 +1,6 @@
 # OKAY 빅데이터 기반 프린팅 검수 서비스
 
-###### 팀 : OKAY ( 총 4명)
+#### 팀 : OKAY ( 총 4명)
 
 ### 프로젝트 관련 PDF 파일 
 : [3차프로젝트.pdf](https://github.com/yminj1029/Goods/files/8973790/3.pdf)
