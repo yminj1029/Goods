@@ -17,7 +17,7 @@
 
 - 팀장 : 윤민지 (백엔드)
 - 팀원 : 오송민 (딥러닝, 데이터베이스) , 김형우(딥러닝, 데이터베이스) , 안예지(프론트엔드)
-![team](https://user-images.githubusercontent.com/68888349/175545161-681237f5-6b84-4dc5-bd23-e7920eb00116.png)
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/68888349/175545161-681237f5-6b84-4dc5-bd23-e7920eb00116.png">
 
 ### **❤️ 개발 목표**
 
@@ -63,14 +63,14 @@
 
 ### **😍 DataBase**
  - Oracle DB를 활용한 로그인 사용자 및 제품 데이터 저장<br/>
-![image](https://user-images.githubusercontent.com/68888349/175549347-cf4a1383-207b-42ae-b2c5-ca64cae958ac.png)
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/68888349/175549347-cf4a1383-207b-42ae-b2c5-ca64cae958ac.png">
 
 
 ### **😍 Web**
  1. 파이썬 Flask를 활용한 웹 개발 및 DB 연동<br/>
- 2. Javascript 및 jQuery를 활용한 화면 구성<br/>
- ![image](https://user-images.githubusercontent.com/68888349/175549595-7425246f-d19b-4d9c-9342-dd9345854a58.png)
-![image](https://user-images.githubusercontent.com/68888349/175549099-3616c533-5b01-4878-a127-1cde5484a662.png)
+ 2. Javascript 및 jQuery를 활용한 화면 구성, 차트 구현<br/>
+<img width="600" height="300" alt="image" src="https://user-images.githubusercontent.com/68888349/175549595-7425246f-d19b-4d9c-9342-dd9345854a58.png">
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/68888349/175549099-3616c533-5b01-4878-a127-1cde5484a662.png">
 
  
 ### **😍 machine learning**
