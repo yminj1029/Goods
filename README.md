@@ -1,3 +1,5 @@
+<br/>
+
 # OKAY 빅데이터 기반 프린팅 검수 서비스
 
 #### 팀 : OKAY ( 총 4명)
@@ -8,6 +10,8 @@
 
 ### 프로젝트 관련 시연 영상 
 : [OKAY 시연 유튜브 영상 바로가기](https://www.youtube.com/watch?v=LEoapwCI-KA)
+
+<br/>
 
 ![3차프로젝트1](https://user-images.githubusercontent.com/68888349/175478843-cfe96493-9448-4107-8669-9ae329bc5f32.jpg)
 ![3차프로젝트2](https://user-images.githubusercontent.com/68888349/175478851-ee10c46b-989f-4d24-895b-7b371318af7a.jpg)
